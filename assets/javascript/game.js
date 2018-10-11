@@ -17,8 +17,12 @@ var pokemonList=['pikachu','charmander','bulbasaur','squirtle','zubat','bellspro
 var guesses=[];     //Empty Array to be filled as user inputs tries
 
 //Set answer to game
-var answer=pokemonList[Math.floor(Math.random()*letters.length)];
+var answer=pokemonList[Math.floor(Math.random()*pokemonList.length)];
 
+//Array to be built by user inputs that are correct 
+var pieceTogether=[];
+
+var playerWord;
 
 /* 
 ==============================================================
@@ -41,7 +45,7 @@ function restart() {
 */
 
 function changePokemon() {
-    answer=pokemonList[Math.floor(Math.random()*letters.length)];
+    answer=pokemonList[Math.floor(Math.random()*pokemonList.length)];
 }
 
 /* 
@@ -66,7 +70,46 @@ function listTries() {
     document.querySelector("#usedLetters").innerHTML="Your Guesses So Far: "+guesses.join(' ');
 }
 
+/* 
+==============================================================
+    Reset Progress Function
+    - Will Reset Array of the Word User has Built
+==============================================================
+*/
+
+function resetProgress() {
+    for(i=0;i<answer.length;i++){
+        pieceTogether[i]='_';
+    }
+}
+
+/* 
+==============================================================
+    Show Progress Function
+    - Will Show Array of Word User has Built
+==============================================================
+*/
+
+function showProgress() {
+    document.querySelector("#wordSpace").innerHTML=playerWord;
+}
+
+/*
+==============================================================
+    Turn To String Function
+    - Will Turn Array User has Built into 1 Word String
+==============================================================
+*/
+
+function turnToString() {
+    playerWord=JSON.stringify(pieceTogether);
+}
+ 
 calcTries();
+resetProgress();
+turnToString();
+showProgress();
+console.log(answer);
 
 //When Player presses key game will start
 document.onkeyup=function(event) {
@@ -79,18 +122,25 @@ document.onkeyup=function(event) {
     listTries();                //Show Tried Letters
 
     for(i=0;i<answer.length;i++){
-
+        if(keyPressed===answer[i]){
+            pieceTogether[i]=answer[i];
+        }
     }
 
-    //If Key Pressed is the Answer
-    if(keyPressed===answer){
+    turnToString();
+    showProgress();
+
+    //If The Word Player Has built Matches the Answer
+    if(playerWord==answer){
         numWins++;          //Increase Number of Wins
         document.querySelector("#wins").innerHTML="Wins: "+numWins; //Output Updated Wins
         //Reset Everything 
         restart();      //Number of Guesses Back to 9 and Tries Array Empty
-        changeLetter(); //Change the Answer to Game
+        changePokemon(); //Change the Answer to Game
         calcTries();    //Output Updated Tries Count
         listTries();    //Update Tried Letters
+        resetProgress();
+        showProgress(); 
     }
 
     //If Player Reaches 0 Tries Left
@@ -99,8 +149,10 @@ document.onkeyup=function(event) {
         document.querySelector("#losses").innerHTML="Losses: "+numLosses;
         //Reset Everything 
         restart();      //Number of Guesses Back to 9 and Tries Array Empty
-        changeLetter(); //Change the Answer to Game
+        changePokemon(); //Change the Answer to Game
         calcTries();    //Output Updated Tries Count
         listTries();    //Update Tried Letters
+        resetProgress();
+        showProgress(); 
     }
 }
