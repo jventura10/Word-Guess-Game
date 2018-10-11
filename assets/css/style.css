@@ -1,0 +1,37 @@
+/*
+    Homework 3 Javier Ventura Word Guess Game
+*/
+
+@import url('https://fonts.googleapis.com/css?family=Pacifico');
+
+body {
+    background-image: url("../images/gravel.png");
+}
+
+.logo {
+    background-color: #4aaaa5;
+    color: #ffffff !important;
+    margin-left: 35%;
+    padding: 5%;
+    margin-bottom: 0;
+    font-family: 'Pacifico', cursive;
+}
+
+.mainCont {
+    background-color: #ffffff;
+}
+
+.teal {
+    color: #4aaaa5;
+}
+
+.blueBar {
+    background-color: #4aaaa5;
+    height: 10px;
+}
+
+.customFooter {
+    background-color: #666666;
+    color: #ffffff;
+    text-align: center;
+}

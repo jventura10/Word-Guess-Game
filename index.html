@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- Homework 3 Javier Ventura Word Guess Game -->
+
+<head>
+    <meta charset="UTF-8">
+    <title>Word Guess Game</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+        crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+</head>
+
+<body>
+    <!--Header-->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light border-secondary">
+        <div class="col-md-4">
+            <h1 class="navbar-brand logo">Javier Ventura</h1>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav"
+                aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </div>
+        <div class="col-md-4"></div>
+        <div class="col-md-4">
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="https://jventura10.github.io/Bootstrap-Portfolio/index.html">About |
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="https://jventura10.github.io/Bootstrap-Portfolio/portfolio.html">Portfolio
+                            | </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="https://jventura10.github.io/Bootstrap-Portfolio/contact.html">Contact</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+    </nav>
+    <br>
+    <br>
+
+    <!--Main Content-->
+    <div class="container">
+        <div class="col-md-1">
+        </div>
+        <div class="jumbotron col-md-11 mainCont border-secondary">
+            <div class="row">
+                <div class="col-md-1">
+                    <img src="assets/images/002-pokeball.svg" alt="Pokemon Pokeball Image">
+                </div>
+                <div class="col-md-1">
+                    <img src="assets/images/009-mega-ball.svg" alt="Pokemon Megaball Image">
+                </div>
+                <div class="col-md-1"></div>
+                <div class="col-md-7">
+                    <h1 class="display-4 teal" style="float: left">Guess That Pokemon!</h1>
+                </div>
+                <div class="col-md-1">
+                    <img src="assets/images/021-ultra-ball.svg" alt="Pokemon Ultraball Image">
+                </div>
+                <div class="col-md-1">
+                    <img src="assets/images/010-superball.svg" alt="Pokemon Superball Image">
+                </div>
+            </div>
+            <hr class="my-4">
+            <div class="row">
+                <div class="col-md-1"></div>
+                <div class="col-md-1">
+                    <img src="assets/images/001-pikachu.svg" alt="Pokemon Pikachu Image">
+                </div>
+                <div class="col-md-1">
+                    <img src="assets/images/003-charmander.svg" alt="Pokemon Charmander Image">
+                </div>
+                <div class="col-md-1">
+                    <img src="assets/images/004-bullbasaur.svg" alt="Pokemon Bulbasaur Image">
+                </div>
+                <div class="col-md-1">
+                    <img src="assets/images/005-squirtle.svg" alt="Pokemon Squirtle Image">
+                </div>
+                <div class="col-md-1">
+                    <img src="assets/images/006-zubat.svg" alt="Pokemon Zubat Image">
+                </div>
+                <div class="col-md-1">
+                    <img src="assets/images/007-bellsprout.svg" alt="Pokemon Bellsprout Image">
+                </div>
+                <div class="col-md-1">
+                    <img src="assets/images/008-rattata.svg" alt="Pokemon Rattata Image">
+                </div>
+                <div class="col-md-1">
+                    <img src="assets/images/011-eevee.svg" alt="Pokemon Eevee Image">
+                </div>
+                <div class="col-md-1">
+                    <img src="assets/images/012-snorlax.svg" alt="Pokemon Snorlax Image">
+                </div>
+                <div class="col-md-1">
+                    <img src="assets/images/013-jigglypuff.svg" alt="Pokemon Jigglypuff Image">
+                </div>
+                <div class="col-md-1"></div>
+            </div>
+            <p id="wordSpace">-------</p>
+            <p id="wins">Wins: 0</p>
+            <p id="losses">Losses: 0</p>
+            <p id="numLeft">Guesses Left: 9</p>
+            <p id="usedLetters">Your Guesses So Far: </p>
+            <div class="row">
+                <div class="col-md-1"></div>
+                <div class="col-md-1">
+                    <img src="assets/images/014-psyduck.svg" alt="Pokemon Psyduck Image">
+                </div>
+                <div class="col-md-1">
+                    <img src="assets/images/015-venonat.svg" alt="Pokemon Venonat Image">
+                </div>
+                <div class="col-md-1">
+                    <img src="assets/images/016-abra.svg" alt="Pokemon Abra Image">
+                </div>
+                <div class="col-md-1">
+                    <img src="assets/images/017-mankey.svg" alt="Pokemon Mankey Image">
+                </div>
+                <div class="col-md-1">
+                    <img src="assets/images/018-caterpie.svg" alt="Pokemon Caterpie Image">
+                </div>
+                <div class="col-md-1">
+                    <img src="assets/images/019-meowth.svg" alt="Pokemon Meowth Image">
+                </div>
+                <div class="col-md-1">
+                    <img src="assets/images/020-dratini.svg" alt="Pokemon Dratini Image">
+                </div>
+                <div class="col-md-1">
+                    <img src="assets/images/022-mew.svg" alt="Pokemon Mew Image">
+                </div>
+                <div class="col-md-1">
+                    <img src="assets/images/023-weedle.svg" alt="Pokemon Weedle Image">
+                </div>
+                <div class="col-md-1">
+                    <img src="assets/images/024-pidgey.svg" alt="Pokemon Pidgey Image">
+                </div>
+                <div class="col-md-1"></div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <br>
+    <br>
+
+    <!--Footer-->
+    <div class="fixed-bottom">
+        <div class="col-md-12 blueBar">
+        </div>
+        <div class="card-footer border-secondary customFooter ">
+            <p>Copyright &copy;</p>
+        </div>
+    </div>
+
+    <!-- Link to Game.js File -->
+    <script src="assets/javascript/game.js"></script>
+
+    <!-- jQuery, javascript file for the Bootstrap's javascript file to function -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <!-- Bootstrap's javascript file that allows the dropdown menu to work  -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+</body>
+
+</html>
