@@ -5,24 +5,26 @@
 */
 
 //Global Variables
-var numWins=0;      //Number of Wins for Player
-var numLosses=0;    //Number of Losses for Player
-var numGuess=9;     //Number of Guesses Left
+var userName = prompt("Enter Desired Username: ");
+var numWins = 0;      //Number of Wins for Player
+var numLosses = 0;    //Number of Losses for Player
+var numGuess = 10;     //Number of Guesses Left
 
 //Letters to choose from
-var pokemonList=['pikachu','charmander','bulbasaur','squirtle','zubat','bellsprout','rattata','eevee','snorlax','jigglypuff',
-                'psyduck','venonat','abra','mankey','caterpie','meowth','dratini','mew','weedle','pidgey'];
+var pokemonList = ['pikachu', 'charmander', 'bulbasaur', 'squirtle', 'zubat', 'bellsprout', 'rattata', 'eevee', 'snorlax', 'jigglypuff',
+    'psyduck', 'venonat', 'abra', 'mankey', 'caterpie', 'meowth', 'dratini', 'mew', 'weedle', 'pidgey'];
 
 //Letters user has tried
-var guesses=[];     //Empty Array to be filled as user inputs tries
+var guesses = [];     //Empty Array to be filled as user inputs tries
 
 //Set answer to game
-var answer=pokemonList[Math.floor(Math.random()*pokemonList.length)];
+var answer = pokemonList[Math.floor(Math.random() * pokemonList.length)];
 
 //Array to be built by user inputs that are correct 
-var pieceTogether=[];
+var pieceTogether = [];
 
-var playerWord;
+//Number of Letters Left
+var lettersLeft;
 
 /* 
 ==============================================================
@@ -33,8 +35,8 @@ var playerWord;
 */
 
 function restart() {
-    numGuess=9;
-    guesses=[];
+    numGuess = 10;
+    guesses = [];
 }
 
 /* 
@@ -45,7 +47,7 @@ function restart() {
 */
 
 function changePokemon() {
-    answer=pokemonList[Math.floor(Math.random()*pokemonList.length)];
+    answer = pokemonList[Math.floor(Math.random() * pokemonList.length)];
 }
 
 /* 
@@ -56,7 +58,7 @@ function changePokemon() {
 */
 
 function calcTries() {
-    document.querySelector("#numLeft").innerHTML="Guesses Left: "+numGuess;
+    document.querySelector("#numLeft").innerHTML = "Guesses Left: " + numGuess;
 }
 
 /* 
@@ -67,7 +69,7 @@ function calcTries() {
 */
 
 function listTries() {
-    document.querySelector("#usedLetters").innerHTML="Your Guesses So Far: "+guesses.join(' ');
+    document.querySelector("#usedLetters").innerHTML = "Your Guesses So Far: " + guesses.join(' ');
 }
 
 /* 
@@ -78,8 +80,9 @@ function listTries() {
 */
 
 function resetProgress() {
-    for(i=0;i<answer.length;i++){
-        pieceTogether[i]='_';
+    pieceTogether = [];
+    for (i = 0; i < answer.length; i++) {
+        pieceTogether[i] = '_';
     }
 }
 
@@ -91,68 +94,89 @@ function resetProgress() {
 */
 
 function showProgress() {
-    document.querySelector("#wordSpace").innerHTML=playerWord;
+    document.querySelector("#wordSpace").innerHTML = pieceTogether.join(" ");
 }
 
-/*
+/* 
 ==============================================================
-    Turn To String Function
-    - Will Turn Array User has Built into 1 Word String
+    Set Letters Left Function
+    - Will Set the Initial Letters Left to Guess 
+    - Based on Length of Answer
 ==============================================================
 */
 
-function turnToString() {
-    playerWord=JSON.stringify(pieceTogether);
+function setLettersLeft() {
+    lettersLeft = answer.length;
 }
- 
+
+
+/* 
+==============================================================
+    Round Reset Function
+    - Will Reset Everything and Start a New Round
+==============================================================
+*/
+
+function roundReset() {
+    document.getElementById("giveAnswer").style.visibility = "hidden";
+    restart();      //Number of Guesses Back to 9 and Tries Array Empty
+    changePokemon(); //Change the Answer to Game
+    setLettersLeft();   //Set Letters Left Based on New Answer
+    calcTries();    //Output Updated Tries Count
+    listTries();    //Update Tried Letters
+    resetProgress();    //Set pieceTogether back to all _ 
+    showProgress();     //Show the New Empty Word
+}
+
+//First Round
+document.querySelector("#statsTitle").innerHTML = userName + "'s Stats"
 calcTries();
+changePokemon();
+setLettersLeft();
 resetProgress();
-turnToString();
 showProgress();
 console.log(answer);
 
 //When Player presses key game will start
-document.onkeyup=function(event) {
-    numGuess--;     //Take 1 try away
+document.onkeyup = function (event) {
+    if (numGuess > 0) {
+        numGuess--;     //Take 1 try away
 
-    var keyPressed=String.fromCharCode(event.keyCode).toLowerCase();   //Store Try into variable
+        var keyPressed = String.fromCharCode(event.keyCode).toLowerCase();   //Store Try into variable
 
-    guesses.push(keyPressed);   //Add Attempt Into Array of Tries
-    calcTries();                //Calculate Tries Again
-    listTries();                //Show Tried Letters
+        guesses.push(keyPressed);   //Add Attempt Into Array of Tries
+        calcTries();                //Calculate Tries Again
+        listTries();                //Show Tried Letters
 
-    for(i=0;i<answer.length;i++){
-        if(keyPressed===answer[i]){
-            pieceTogether[i]=answer[i];
+        for (i = 0; i < answer.length; i++) {
+            if (keyPressed === answer[i]) {
+                pieceTogether[i] = answer[i];
+                lettersLeft--;
+            }
         }
-    }
 
-    turnToString();
-    showProgress();
+        showProgress();
 
-    //If The Word Player Has built Matches the Answer
-    if(playerWord==answer){
-        numWins++;          //Increase Number of Wins
-        document.querySelector("#wins").innerHTML="Wins: "+numWins; //Output Updated Wins
-        //Reset Everything 
-        restart();      //Number of Guesses Back to 9 and Tries Array Empty
-        changePokemon(); //Change the Answer to Game
-        calcTries();    //Output Updated Tries Count
-        listTries();    //Update Tried Letters
-        resetProgress();
-        showProgress(); 
-    }
+        //If The Word Player Has built Matches the Answer
+        if (lettersLeft == 0) {
+            numWins++;          //Increase Number of Wins
+            document.querySelector("#wins").innerHTML = "Wins: " + numWins; //Output Updated Wins
+            //Reset Everything 
+            restart();      //Number of Guesses Back to 9 and Tries Array Empty
+            changePokemon(); //Change the Answer to Game
+            setLettersLeft();   //Set Letters Left Based on New Answer
+            calcTries();    //Output Updated Tries Count
+            listTries();    //Update Tried Letters
+            resetProgress();    //Set pieceTogether back to all _ 
+            showProgress();     //Show Empty Word
+        }
 
-    //If Player Reaches 0 Tries Left
-    if(numGuess<=0){
-        numLosses++;          //Increase Number of Losses
-        document.querySelector("#losses").innerHTML="Losses: "+numLosses;
-        //Reset Everything 
-        restart();      //Number of Guesses Back to 9 and Tries Array Empty
-        changePokemon(); //Change the Answer to Game
-        calcTries();    //Output Updated Tries Count
-        listTries();    //Update Tried Letters
-        resetProgress();
-        showProgress(); 
+        //If Player Reaches 0 Tries Left
+        if (numGuess <= 0) {
+            numLosses++;          //Increase Number of Losses
+            document.querySelector("#losses").innerHTML = "Losses: " + numLosses;
+            document.querySelector("#giveAnswer").innerHTML = "The Answer was: " + answer;
+            document.getElementById("giveAnswer").style.visibility = "visible";
+        }
     }
 }
